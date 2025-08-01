@@ -8,19 +8,7 @@ title: Главная страница
 1
 2
 
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    mermaid.initialize({ startOnLoad: true });
-    // Преобразование блоков ```mermaid в div.mermaid
-    document.querySelectorAll('pre code.language-mermaid').forEach((el) => {
-      const div = document.createElement('div');
-      div.className = 'mermaid';
-      div.textContent = el.textContent;
-      el.parentNode.replaceWith(div);
-    });
-  });
-</script>
+
 
 ```mermaid
 graph TD;
