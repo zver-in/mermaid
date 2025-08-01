@@ -2,10 +2,3 @@ title: "Документация проекта DeliveryCashier"
 baseurl: "/docs"
 lang: ru-RU
 theme: jekyll-theme-minimal
-
-markdown: CommonMark
-commonmark:
-  extensions:
-    - table
-    - strikethrough
-    - mermaid
