@@ -1,6 +1,7 @@
 ## test
 
 1
+2
 
 <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>
@@ -20,16 +21,3 @@
 graph TD;
   A --> B;
 ```
-
-<script type="module">
-	import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-	mermaid.initialize({
-		startOnLoad: true,
-		theme: 'dark'
-	});
-</script>
-
-<pre class="mermaid">
-flowchart TD
-     C-->D
-</pre>
