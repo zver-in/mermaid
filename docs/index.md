@@ -1,3 +1,8 @@
+---
+layout: default
+title: Главная страница
+---
+
 ## test
 
 1
