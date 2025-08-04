@@ -1,2 +1,12 @@
 title: "Мой сайт"
 description: "Описание сайта"
+baseurl: "/docs"
+lang: ru-RU
+theme: minima
+
+markdown: CommonMark
+commonmark:
+  extensions:
+    - table
+    - strikethrough
+    - mermaid
