@@ -1,24 +1,31 @@
 title: "Мой сайт"
 description: "Описание сайта"
 baseurl: "/docs"  # если сайт находится в подпапке
+source: docs
+destination: _site/docs
 
-# Отключите стандартную тему
+# Полностью отключаем тему
 theme: null
 
-# Настройки Markdown (используйте либо kramdown, либо CommonMark)
-markdown: CommonMark
-commonmark:
-  extensions:
-    - table
-    - strikethrough
-    - mermaid
+# Используем kramdown как более стабильный вариант
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
-# Явно укажите использовать ваш шаблон
+# Принудительно применяем наш шаблон
 defaults:
   - scope:
-      path: ""  # для всех файлов
+      path: ""
     values:
       layout: default
 
+# Включаем только необходимые плагины
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
 exclude:
   - README.md
+  - Gemfile
+  - Gemfile.lock
