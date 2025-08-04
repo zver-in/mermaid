@@ -1,12 +1,2 @@
 title: "Мой сайт"
 description: "Описание сайта"
-baseurl: "/docs"  # если сайт находится в подпапке
-source: docs
-destination: _site/docs
-
-theme: null
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: default
