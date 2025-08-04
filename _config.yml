@@ -4,28 +4,9 @@ baseurl: "/docs"  # если сайт находится в подпапке
 source: docs
 destination: _site/docs
 
-# Полностью отключаем тему
 theme: null
-
-# Используем kramdown как более стабильный вариант
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-
-# Принудительно применяем наш шаблон
 defaults:
   - scope:
       path: ""
     values:
       layout: default
-
-# Включаем только необходимые плагины
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-
-exclude:
-  - README.md
-  - Gemfile
-  - Gemfile.lock
