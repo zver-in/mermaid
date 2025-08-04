@@ -1,10 +1,22 @@
 title: "Мой сайт"
 description: "Описание сайта"
+baseurl: "/docs"  # если сайт находится в подпапке
 
-override_theme: true
+# Отключите стандартную тему
+theme: null
+
+# Настройки Markdown (используйте либо kramdown, либо CommonMark)
+markdown: CommonMark
+commonmark:
+  extensions:
+    - table
+    - strikethrough
+    - mermaid
+
+# Явно укажите использовать ваш шаблон
 defaults:
   - scope:
-      path: ""
+      path: ""  # для всех файлов
     values:
       layout: default
 
