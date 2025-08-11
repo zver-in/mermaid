@@ -4,9 +4,6 @@ baseurl: "/docs"
 lang: ru-RU
 theme: minima
 
-markdown: CommonMark
-commonmark:
-  extensions:
-    - table
-    - strikethrough
-    - mermaid
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
