@@ -1,33 +1,65 @@
-<!-- Поддержка Mermaid -->
+<!-- MathJax config -->
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+  startup: { typeset: false } // мы сами вызовем typeset после вставки формул
+};
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Mermaid -->
 <script 
   src="https://cdn.jsdelivr.net/npm/mermaid@10.6.0/dist/mermaid.min.js"
   integrity="sha384-qmRIUhfYBLO+XWmSgaVv6qw3Q6KbpROqxZWbdnQJLWY1L8ZgWHV3Itrz+xQ2P8Bc"
   crossorigin="anonymous">
 </script>
 
-<!-- MathJax -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<!-- Обработка mermaid и math -->
+<!-- Обработка блоков mermaid и math -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  // --- Mermaid ---
-  mermaid.initialize({ startOnLoad: false });
-  document.querySelectorAll('pre code.language-mermaid').forEach((el) => {
-    const div = document.createElement('div');
-    div.className = 'mermaid';
-    div.textContent = el.textContent;
-    el.parentNode.replaceWith(div);
-  });
-  mermaid.init();
+  function replaceCodeBlocks(selector, makeNode) {
+    document.querySelectorAll(selector).forEach(code => {
+      const pre = code.closest('pre') || code.parentNode;
+      const node = makeNode(code.textContent || code.innerText || '');
+      if (pre && pre.parentNode) pre.parentNode.replaceChild(node, pre);
+    });
+  }
 
-  // --- Math ---
-  document.querySelectorAll('pre code.language-math').forEach((block) => {
-    const latex = block.textContent.trim();
-    const div = document.createElement('div');
-    div.innerHTML = `\\[${latex}\\]`; // блочная формула MathJax
-    block.parentNode.replaceWith(div);
+  // Mermaid
+  replaceCodeBlocks('pre code.language-mermaid, pre code.mermaid, code.language-mermaid', text => {
+    const d = document.createElement('div');
+    d.className = 'mermaid';
+    d.textContent = text;
+    return d;
   });
+  if (window.mermaid && mermaid.init) {
+    try { mermaid.initialize({ startOnLoad:false }); mermaid.init(undefined, document.querySelectorAll('.mermaid')); }
+    catch(e){ console.warn('mermaid init error', e); }
+  }
+
+  // Math
+  replaceCodeBlocks('pre code.language-math, pre code.math, code.language-math', text => {
+    const d = document.createElement('div');
+    d.innerHTML = '\\[' + text.trim() + '\\]';
+    return d;
+  });
+
+  // Запустить MathJax повторно
+  function typesetWhenReady() {
+    if (window.MathJax && (MathJax.typesetPromise || (MathJax.startup && MathJax.startup.promise))) {
+      (MathJax.typesetPromise ? MathJax.typesetPromise() : MathJax.startup.promise.then(() => MathJax.typesetPromise()))
+        .catch((err) => console.warn('MathJax typeset error:', err));
+    } else {
+      const t = setInterval(() => {
+        if (window.MathJax && MathJax.typesetPromise) {
+          clearInterval(t);
+          MathJax.typesetPromise().catch((err)=>console.warn(err));
+        }
+      }, 150);
+    }
+  }
+  typesetWhenReady();
 });
 </script>
