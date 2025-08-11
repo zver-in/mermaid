@@ -2,13 +2,8 @@
 
 1
 2
-3
-4
-5
-6
-7
-8
 
+Даиграмма:
 
 ```mermaid
 graph TD
@@ -35,4 +30,10 @@ graph TD
     P --> Q
     Q --> R[Применение результатов]
     R --> S[Запуск автоназначения при необходимости]
+```
+
+Формула:
+
+```math
+CourierLoadFactor = \frac{OrdersCount \times AverageDeliveryTime}{CouriersCount \times TimeFrame} \times 0.5
 ```
